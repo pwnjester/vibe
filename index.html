@@ -3,115 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Internal File Viewer</title>
+  <title>~*~ Welcome to My Webpage ~*~</title>
   <style>
     body {
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'), #000;
+      color: #00ffff;
+      font-family: "Comic Sans MS", cursive, sans-serif;
       margin: 0;
-      font-family: monospace;
-      background-color: #1e1e1e;
-      color: #00ff88;
-      display: flex;
-      height: 100vh;
+      padding: 0;
     }
-    #sidebar {
-      width: 250px;
+    header {
       background-color: #111;
+      color: #ff69b4;
+      text-align: center;
       padding: 1em;
-      overflow-y: auto;
-      border-right: 2px solid #00ff88;
+      border-bottom: 2px dashed #ff69b4;
     }
-    #main {
-      flex-grow: 1;
+    .guestbook {
+      max-width: 700px;
+      margin: 2em auto;
+      background-color: rgba(0,0,0,0.6);
       padding: 1em;
-      overflow-y: auto;
+      border: 2px dashed #00ffff;
     }
-    .file {
-      cursor: pointer;
-      margin: 0.5em 0;
+    .entry {
+      border-top: 1px dotted #888;
+      padding: 1em 0;
     }
-    .file:hover {
-      text-decoration: underline;
+    .entry:first-child {
+      border-top: none;
     }
-    .folder {
-      font-weight: bold;
-      margin-top: 1em;
+    .username {
+      color: #ffff00;
     }
-    .placeholder-img {
-      display: inline-block;
-      width: 300px;
-      height: 200px;
-      background-color: #333;
-      color: #888;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1em 0;
-      border: 1px dashed #888;
+    .date {
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 4em;
+      font-size: 0.8em;
+      color: #555;
+    }
+    a {
+      color: #ff69b4;
     }
   </style>
 </head>
 <body>
-  <div id="sidebar">
-    <div class="folder">/root</div>
-    <div class="file" onclick="openFile('readme.txt')">readme.txt</div>
-    <div class="file" onclick="openFile('corrupt-image.img')">corrupt-image.img</div>
-    <div class="file" onclick="openFile('log_0425.log')">log_0425.log</div>
-    <div class="file" onclick="openFile('secret.sys')">secret.sys</div>
-    <div class="file" onclick="openFile('notes/hidden.html')">notes/hidden.html</div>
-    <div class="file" onclick="openFile('terminal.fake')">terminal.fake</div>
-    <div class="file" onclick="openFile('archive/old_website.html')">archive/old_website.html</div>
-    <div class="file" onclick="openFile('images/logo_v3.png')">images/logo_v3.png</div>
-    <div class="file" onclick="openFile('music/intro_theme.mid')">music/intro_theme.mid</div>
-    <div class="file" onclick="openFile('html/contact-us.html')">html/contact-us.html</div>
-    <div class="file" onclick="openFile('posts/faq.txt')">posts/faq.txt</div>
-    <div class="file" onclick="openFile('posts/forum-thread.eml')">posts/forum-thread.eml</div>
-    <div class="file" onclick="openFile('weird/recovered_fragment.txt')">weird/recovered_fragment.txt</div>
-    <div class="file" onclick="openFile('jokes/funny.gif')">jokes/funny.gif</div>
+  <header>
+    <h1>~*~ Angelfire Guestbook 4EVER ~*~</h1>
+    <marquee behavior="scroll" direction="left">Sign my guestbook! Leave a message!! 🌟✨</marquee>
+  </header>
+
+  <section class="guestbook">
+    <div class="entry">
+      <span class="username">pixiegirl88</span> <span class="date">| Posted on 08/03/2003</span>
+      <p>omg i luv this page!! thx for the dollz 😍</p>
+    </div>
+    <div class="entry">
+      <span class="username">d34db0y</span> <span class="date">| Posted on 10/14/2003</span>
+      <p>do NOT click the mirror.gif file, i swear it wasn’t there yesterday</p>
+    </div>
+    <div class="entry">
+      <span class="username">???</span> <span class="date">| Posted on 10/15/2003</span>
+      <p>mirror.gif is broken.</p>
+    </div>
+    <div class="entry">
+      <span class="username">~.null</span> <span class="date">| Posted on 10/15/2003</span>
+      <p>stop looking at me.</p>
+    </div>
+    <div class="entry">
+      <span class="username">static_god</span> <span class="date">| Posted on ???</span>
+      <p><em>[entry corrupted]</em></p>
+    </div>
+  </section>
+
+  <div class="footer">
+    <p>Best viewed in Netscape Navigator &middot; Site last updated 12/19/2003</p>
+    <p><a href="mirror.gif">View Mirror</a></p>
   </div>
-  <div id="main">
-    <h2>File Viewer</h2>
-    <div id="viewer">Select a file to view its contents.</div>
-  </div>
-
-  <script>
-    const files = {
-      "readme.txt": `Welcome to Internal File Viewer v1.2\n\nThis interface is deprecated. Do not modify internal config files.\n\nNOTICE: Archive cleanup scheduled for 05/20/2025.`,
-
-      "corrupt-image.img": `<div class='placeholder-img'>Corrupted Image Placeholder</div><p>[Hint: Try adjusting brightness... if you had the tool]</p>`,
-
-      "log_0425.log": `04:05:00 - User logged in\n04:06:22 - ERROR 0x01EF: Overlap detected\n03:58:44 - File sync begun\n04:10:10 - Warning: Integrity drift\n^ That timestamp's off... weird.`,
-
-      "secret.sys": `# SYSTEM CONFIG\n---\nENCRYPTED: Z3JlZW4gdGV4dCBpcyBzZWNyZXQ=\nDo not decode. Seriously.`,
-
-      "notes/hidden.html": `<p>This is not the real file.</p><p>But you are getting warmer.</p>`,
-
-      "terminal.fake": `<pre>Fake Terminal Emulator\n> connect old_server\nConnection timeout.\n> run scan_script\nNo scripts found.\n> help\n404 - Assistance not located.</pre>`,
-
-      "archive/old_website.html": `<h4>Welcome to My Cool Website</h4><p>Under construction since 1998</p><marquee>You're being watched...</marquee>`,
-
-      "images/logo_v3.png": `<div class='placeholder-img'>Image: logo_v3.png</div><p>Last modified: 2003</p>`,
-
-      "music/intro_theme.mid": `<p>[MIDI File Placeholder]</p><p>Filename: intro_theme.mid</p><p>Description: Soothing chiptune melody - plays on load.</p>`,
-
-      "html/contact-us.html": `<h3>Contact Us</h3><p>Email: help@nonexistent.site</p><p>Phone: ???</p><p>Status: Inactive since 2006</p>`,
-
-      "posts/faq.txt": `Q: What is this?\nA: A knowledge relic.\nQ: Why so cryptic?\nA: You ask too many questions.`,
-
-      "posts/forum-thread.eml": `<h4>Subject: RE: RE: RE: u up?</h4><p>From: pixelghost99@freemail.com</p><p>We shouldn't have opened that .dat file...</p>`,
-
-      "weird/recovered_fragment.txt": `--- BEGIN FRAGMENT ---\nThe mirrors are not broken, just reversed.\nLook for the silent ping.\n--- END ---`,
-
-      "jokes/funny.gif": `<div class='placeholder-img'>Animated GIF Placeholder</div><p>File: funny.gif</p><p>Description: Dancing skeleton (loops forever)</p>`
-    };
-
-    function openFile(fileName) {
-      const viewer = document.getElementById("viewer");
-      if (files[fileName]) {
-        viewer.innerHTML = `<h3>${fileName}</h3><pre>${files[fileName]}</pre>`;
-      } else {
-        viewer.textContent = "File not found.";
-      }
-    }
-  </script>
 </body>
 </html>
