@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internal File Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background-color: #1e1e1e;
+      color: #00ff88;
+      display: flex;
+      height: 100vh;
+    }
+    #sidebar {
+      width: 250px;
+      background-color: #111;
+      padding: 1em;
+      overflow-y: auto;
+      border-right: 2px solid #00ff88;
+    }
+    #main {
+      flex-grow: 1;
+      padding: 1em;
+      overflow-y: auto;
+    }
+    .file {
+      cursor: pointer;
+      margin: 0.5em 0;
+    }
+    .file:hover {
+      text-decoration: underline;
+    }
+    .folder {
+      font-weight: bold;
+      margin-top: 1em;
+    }
+    .placeholder-img {
+      display: inline-block;
+      width: 300px;
+      height: 200px;
+      background-color: #333;
+      color: #888;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1em 0;
+      border: 1px dashed #888;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <div class="folder">/root</div>
+    <div class="file" onclick="openFile('readme.txt')">readme.txt</div>
+    <div class="file" onclick="openFile('corrupt-image.img')">corrupt-image.img</div>
+    <div class="file" onclick="openFile('log_0425.log')">log_0425.log</div>
+    <div class="file" onclick="openFile('secret.sys')">secret.sys</div>
+    <div class="file" onclick="openFile('notes/hidden.html')">notes/hidden.html</div>
+    <div class="file" onclick="openFile('terminal.fake')">terminal.fake</div>
+  </div>
+  <div id="main">
+    <h2>File Viewer</h2>
+    <div id="viewer">Select a file to view its contents.</div>
+  </div>
+
+  <script>
+    const files = {
+      "readme.txt": `Welcome to Internal File Viewer v1.2\n\nThis interface is deprecated. Do not modify internal config files.\n` +
+        `\nNOTICE: Archive cleanup scheduled for 05/20/2025.`,
+
+      "corrupt-image.img": `<div class='placeholder-img'>Corrupted Image Placeholder</div>` +
+        `<p>[Hint: Try adjusting brightness... if you had the tool]</p>`,
+
+      "log_0425.log": `04:05:00 - User logged in\n04:06:22 - ERROR 0x01EF: Overlap detected\n` +
+        `03:58:44 - File sync begun\n04:10:10 - Warning: Integrity drift\n` +
+        `^ That timestamp's off... weird.`,
+
+      "secret.sys": `# SYSTEM CONFIG\n---\nENCRYPTED: Z3JlZW4gdGV4dCBpcyBzZWNyZXQ=\n` +
+        `Do not decode. Seriously.`,
+
+      "notes/hidden.html": `<p>This is not the real file.</p><p>But you are getting warmer.</p>`,
+
+      "terminal.fake": `<pre>> access internal_logs\nAccess denied.\n> override_protocol\nProtocol not found.\n> help\nTry harder.</pre>`
+    };
+
+    function openFile(fileName) {
+      const viewer = document.getElementById("viewer");
+      if (files[fileName]) {
+        viewer.innerHTML = `<h3>${fileName}</h3><pre>${files[fileName]}</pre>`;
+      } else {
+        viewer.textContent = "File not found.";
+      }
+    }
+  </script>
+</body>
+</html>
